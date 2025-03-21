@@ -1,0 +1,51 @@
+import numpy as np
+
+def print_grid(grid):
+    for row in grid:
+        print(" ".join(row))
+    print()
+
+grid_size = (2, 2)
+states = [(i, j) for i in range(grid_size[0]) for j in range(grid_size[1])]
+
+actions = ["UP", "DOWN", "LEFT", "RIGHT"]
+
+def policy(state):
+    i, j = state
+    if j < grid_size[1] - 1:
+        return "RIGHT"
+    elif i < grid_size[0] - 1:
+        return "DOWN"
+    return "STAY"
+
+grid = np.array([["S", "_"],
+                  ["_", "G"]])
+
+print("Initial Grid:")
+print_grid(grid)
+
+state = (0, 0)
+path = [state]
+while state != (1, 1):
+    action = policy(state)
+    if action == "RIGHT":
+        state = (state[0], state[1] + 1)
+    elif action == "DOWN":
+        state = (state[0] + 1, state[1])
+    path.append(state)
+
+print("Agent Path:")
+for step, pos in enumerate(path):
+    print(f"Step {step}: {pos}")
+
+
+output:
+
+Initial Grid:
+S _
+_ G
+
+Agent Path:
+Step 0: (0, 0)
+Step 1: (0, 1)
+Step 2: (1, 1)
