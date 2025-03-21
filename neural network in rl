@@ -1,0 +1,24 @@
+import random
+
+class Environment:
+    def __init__(self):
+        self.state = (0, 0)
+        self.goal = (2, 2)
+        self.actions = ["RIGHT", "DOWN"]
+    
+    def step(self, action):
+        i, j = self.state
+        if action == "RIGHT" and j < 2:
+            j += 1
+        elif action == "DOWN" and i < 2:
+            i += 1
+        self.state = (i, j)
+        reward = 1 if self.state == self.goal else -0.1
+        return self.state, reward
+
+env = Environment()
+state = env.state
+while state != (2, 2):
+    action = random.choice(env.actions)
+    state, reward = env.step(action)
+    print(f"State: {state}, Action: {action}, Reward: {reward}")
